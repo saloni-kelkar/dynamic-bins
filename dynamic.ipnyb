@@ -13,21 +13,13 @@ import plotly.graph_objects as go
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
 
-from index import app
+app = dash.Dash(__name__)
 
-#app = dash.Dash(__name__)
-
-with open('dynamic_bins/resources_msgs.pkl', 'rb') as f:
-    data_resources = pickle.load(f)
-
-with open('dynamic_bins/events_msgs.pkl', 'rb') as f:
-    data_events = pickle.load(f)
-
-'''with open('resources_msgs.pkl', 'rb') as f:
+with open('resources_msgs.pkl', 'rb') as f:
     data_resources = pickle.load(f)
 
 with open('events_msgs.pkl', 'rb') as f:
-    data_events = pickle.load(f)'''
+    data_events = pickle.load(f)
 
 with open("messages.csv", "w", newline="", encoding="utf-8") as f:
     writer = csv.writer(f)
@@ -120,13 +112,6 @@ streamgraph = app.layout = html.Div([
         id='graph'
     ),
 ])
-
-@app.callback(
-    Output('dcc_store_component_id', 'data'),
-    Input('time-slider', 'value'))
-
-def store_slider_value_in_dcc_store(slider_value):
-    return {'slider_app1_value': slider_value}
 
 @app.callback(
     Output("graph", "figure"),
@@ -262,5 +247,5 @@ def display_area(time):
     return plt
 
 
-'''if __name__ == '__main__':
-    app.run_server(debug=True)'''
+if __name__ == '__main__':
+    app.run_server(debug=True)
